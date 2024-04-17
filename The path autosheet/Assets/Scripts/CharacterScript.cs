@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CharacterScript : MonoBehaviour
 {
-    //Character Sheet Variables
-    private string _name;
-    private string _alignment;
-    //Alignment conversion vars
-    private Dictionary<char, string> alignmentMap = new Dictionary<char, string>()
+    //Private Character Sheet Variables
+    private string name;
+    private AlignmentMap alignment;
+    //Public Character Sheet 
+    public enum AlignmentMap
     {
-        {'L', "Lawful"},
-        {'C', "Chaotic"},
-        {'T', "True"},
-        {'E', "Evil"},
-        {'N', "Neutral"},
-        {'G', "Good"}
-    };
+        LawfulEvil,
+        ChaoticEvil,
+        TrueEvil,
+        LawfulNeutral,
+        ChaoticNeutral,
+        TrueNeutral,
+        LawfulGood,
+        ChaoticGood,
+        TrueGood
+    }
     public string CharacterName
     {
         get
         {
-            return _name;
+            return name;
         }
 
     }
@@ -29,38 +33,33 @@ public class CharacterScript : MonoBehaviour
     {
         get
         {
-            string s = "";
-            s += alignmentMap[_alignment[0]];
-            s += " ";
-            s += alignmentMap[_alignment[1]];
-            return s;
+            return alignment.ToString();
         }
-        set { _alignment = value; }
     }
     /// <summary>
-    /// Creates new Instance; USE ONLY FOR TESTING
+    /// Initializes variables
     /// </summary>
     /// <param name="name">name of the character</param>
-    /// <param name="alignment">alignment of the charcter; Enter in two chars (LE = Lawful Evil)</param>
-    public CharacterScript(string name, string alignment)
+    /// <param name="alignment">alignment of the character</param>
+    public void Init(string name, AlignmentMap alignment)
     {
-        _name = name;
-        _alignment = alignment;
+        this.name = name;
+        this.alignment = alignment;
     }
-
-    public void ChangeAlignment(string newAlignment)
+    /// <summary>
+    /// Initializes empty variables
+    /// </summary>
+    public void Init()
     {
-        _alignment = newAlignment;
+        this.name = "";
+        this.alignment = AlignmentMap.TrueNeutral;
     }
-
-    void Start()
+    /// <summary>
+    /// Changes alignment
+    /// </summary>
+    /// <param name="newAlignment">Changes alignent to this</param>
+    public void ChangeAlignment(AlignmentMap newAlignment)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        alignment = newAlignment;
     }
 }

@@ -7,17 +7,23 @@ using UnityEngine.TestTools;
 public class CharacterTests
 {
     private CharacterScript character;
+    private GameObject go;
 
     [SetUp]
     public void Init()
     {
-        character = new CharacterScript("Test", "LE");
+        go = new GameObject();
+        character = go.AddComponent<CharacterScript>();
     }
 
     [Test]
-    public void Alignment()
+    public void ChangingAlignmentWorks()
     {
-        Assert.AreEqual("Lawful Evil", character.Alignment);
-        //Assert.AreEqual("True Good", character.Alignment);
+        //Arrange
+        character.Init("Test", CharacterScript.AlignmentMap.LawfulEvil);
+        //Act
+        character.ChangeAlignment(CharacterScript.AlignmentMap.TrueGood);
+        //Assert
+        Assert.AreEqual("TrueGood", character.Alignment);
     }
 }

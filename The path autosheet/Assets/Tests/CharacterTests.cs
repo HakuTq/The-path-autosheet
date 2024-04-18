@@ -20,7 +20,7 @@ public class CharacterTests
     public void ChangingAlignmentWorks()
     {
         //Arrange
-        character.Init("Test", CharacterScript.AlignmentMap.LawfulEvil);
+        character.Init("Test", CharacterScript.AlignmentMap.LawfulEvil, "Human", "Jesus");
         //Act
         character.ChangeAlignment(CharacterScript.AlignmentMap.TrueGood);
         //Assert
